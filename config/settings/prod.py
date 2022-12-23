@@ -1,0 +1,15 @@
+from .base import *
+
+DEBUG = False
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS')
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+SERVER_EMAIL = env('SERVER_EMAIL')
+EMAIL_PORT = env.int('EMAIL_PORT')
+EMAIL_USE_SSL = env.bool('EMAIL_USE_SSL')
+
+# AWS

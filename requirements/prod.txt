@@ -1,0 +1,5 @@
+-r ./base.txt
+
+whitenoise==6.2.0
+boto3==1.24.26
+django-storages==1.12.3
