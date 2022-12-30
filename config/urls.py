@@ -10,6 +10,13 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView
 )
 
+from fcm_django.api.rest_framework import FCMDeviceAuthorizedViewSet
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register('devices', FCMDeviceAuthorizedViewSet)
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -27,6 +34,7 @@ urlpatterns = [
     # module observations
     path('api/observations/', include('applications.observations.urls')),
 
-
+    # routes for fcm_django
+    path('', include(router.urls)),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

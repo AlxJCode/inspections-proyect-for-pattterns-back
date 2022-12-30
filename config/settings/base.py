@@ -73,7 +73,7 @@ SERVICES_APPS = USER_MS + HISTORY_MS + INSPECTIONS_MS + OBSERVATIONS_MS
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + SERVICES_APPS
 
 # FCM firebase
-""" FCM_DJANGO_SETTINGS = {
+FCM_DJANGO_SETTINGS = {
      # default: _('FCM Django')
     "APP_VERBOSE_NAME": "FCM_Django",
     "FCM_SERVER_KEY": "AAAAbET7T30:APA91bEwykuj7185eUhyAUZ6bWxPczNkYU-5VRVnjc_-AFDY9276clTkxP3CichfLUXbdBDula3nP5o9twSQbWzs1_j5WBwV1s2K2yua6xdBeR8PGFh4WoWbJ2sMra978hLd8zHWdwb5",
@@ -90,7 +90,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + SERVICES_APPS
     "UPDATE_ON_DUPLICATE_REG_ID": True,
 }
 cred = credentials.Certificate(os.path.join(BASE_DIR, 'credentials.json'))
-firebase_admin.initialize_app(cred) """
+firebase_admin.initialize_app(cred)
 
 # Middleware
 
