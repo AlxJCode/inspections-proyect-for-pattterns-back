@@ -18,6 +18,7 @@ class InspectionDetail(TimeStampModel):
     impact_details                  = models.CharField ( 'impact details', max_length = 150 ) 
     type                            = models.CharField ( 'type', max_length = 50 )
     amb_id                          = models.ForeignKey( InspectionAssessment, on_delete = models.PROTECT, related_name = "inspection_detail_amb" )
+    amb_name                        = models.CharField ( 'amb name', max_length = 100 )
     corrective_tasks                = models.CharField( 'corrective tasks', max_length = 100 )
     compliance_date                 = models.DateTimeField( 'compliance date' )
     percentage                      = models.IntegerField( 'percentage' )
