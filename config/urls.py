@@ -34,6 +34,9 @@ urlpatterns = [
     # module observations
     path('api/observations/', include('applications.observations.urls')),
 
+    # module histories
+    path("api/", include('applications.history.urls')),
+
     # routes for fcm_django
     path('', include(router.urls)),
 
