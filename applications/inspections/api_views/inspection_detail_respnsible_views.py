@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
 
 from applications.inspections.models import InspectionDetailResponsible
-from applications.inspections.serializers import InspectionSerializerRequest, InspectionSerializerResponse
+from applications.inspections.serializers import InspectionDetailResponsibleSerializerRequest, InspectionDetailResponsibleSerializerResponse
 from applications.utils.resp_tools import Resp
 
 class InspectionDetailResponsibleListView(APIView, PageNumberPagination):
@@ -24,9 +24,9 @@ class InspectionDetailResponsibleListView(APIView, PageNumberPagination):
             is_paginated = bool(request.GET.get('page', None))
 
             if is_paginated:
-                inspection_detail_responsibles_serializer = InspectionSerializerResponse(results, many=True)
+                inspection_detail_responsibles_serializer = InspectionDetailResponsibleSerializerRequest(results, many=True)
             else:
-                inspection_detail_responsibles_serializer = InspectionSerializerRequest(inspection_detail_responsibles, many=True)
+                inspection_detail_responsibles_serializer = InspectionDetailResponsibleSerializerResponse(inspection_detail_responsibles, many=True)
 
             return Resp(
                 data_=inspection_detail_responsibles_serializer.data,
@@ -43,7 +43,7 @@ class InspectionDetailResponsibleListView(APIView, PageNumberPagination):
     
     def post(self, request, format=None):
         try:
-            inspection_detail_responsible_serializer = InspectionSerializerRequest(data=request.data)
+            inspection_detail_responsible_serializer = InspectionDetailResponsibleSerializerRequest(data=request.data)
             if inspection_detail_responsible_serializer.is_valid():
                 inspection_detail_responsible_serializer.save()
                 # History process pending
@@ -61,7 +61,7 @@ class InspectionDetailResponsibleDetailView(APIView):
     def get(self, request, pk):
         try:
             inspection_detail_responsible = InspectionDetailResponsible.objects.get(pk=pk)
-            inspection_detail_responsible_serializer = InspectionSerializerResponse(inspection_detail_responsible)
+            inspection_detail_responsible_serializer = InspectionDetailResponsibleSerializerResponse(inspection_detail_responsible)
             return Resp(data_=inspection_detail_responsible_serializer.data).send()
         except InspectionDetailResponsible.DoesNotExist:
             return Resp(msg="InspectionDetailResponsible no existente", status_=False, code_=status.HTTP_400_BAD_REQUEST).send()
@@ -69,7 +69,7 @@ class InspectionDetailResponsibleDetailView(APIView):
     def put(self, request, pk):
         try:
             inspection_detail_responsible = InspectionDetailResponsible.objects.get(pk=pk)
-            inspection_detail_responsible_serializer = InspectionSerializerRequest(inspection_detail_responsible, request.data, partial=True)
+            inspection_detail_responsible_serializer = InspectionDetailResponsibleSerializerRequest(inspection_detail_responsible, request.data, partial=True)
 
             if inspection_detail_responsible_serializer.is_valid():
                 inspection_detail_responsible_serializer.save()
@@ -111,9 +111,9 @@ class InspectionDetailResponsibleFiltersView(APIView, PageNumberPagination):
             is_paginated = bool(request.GET.get('page', None))
 
             if is_paginated:
-                inspection_detail_responsibles_serializer = InspectionSerializerResponse(results, many=True)
+                inspection_detail_responsibles_serializer = InspectionDetailResponsibleSerializerResponse(results, many=True)
             else:
-                inspection_detail_responsibles_serializer = InspectionSerializerRequest(inspection_detail_responsibles, many=True)
+                inspection_detail_responsibles_serializer = InspectionDetailResponsibleSerializerRequest(inspection_detail_responsibles, many=True)
 
             return Resp(
                 data_=inspection_detail_responsibles_serializer.data,
