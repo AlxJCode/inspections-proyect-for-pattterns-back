@@ -89,6 +89,8 @@ class SystemUserListView(APIView, PageNumberPagination):
                 # If system user serializer is not valid throw exception and remove the previous process
                 raise Exception('System user serializer is not valid')
         except Exception:
+            tb = traceback.format_exc()
+            print(tb)
             return Resp(msg_="Error al crear al usuario, verfique que todos los datos enviados sean los requeridos.", status_=False, code_=status.HTTP_400_BAD_REQUEST).send()
 
 class SystemUserDetailView(APIView):
