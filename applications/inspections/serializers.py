@@ -71,7 +71,7 @@ class InspectionDetailResponsibleSerializerRequest( serializers.ModelSerializer 
         fields = "__all__"
 
 class InspectionDetailResponsibleSerializerResponse( serializers.ModelSerializer ):
-    inspection_detail_model = InspectionDetailSerializerRequest( source = "inpection_detail_id" )
+    inspection_detail_model = InspectionDetailSerializerRequest( source = "inspection_detail_id" )
     class Meta:
         model = InspectionDetailResponsible
         fields = "__all__"
