@@ -4,7 +4,7 @@ from applications.utils.models import TimeStampModel
 from applications.inspections.models import InspectionDetail
 
 def inspection_detail_evidence_path(instance, filename):
-    return 'inpections/details/{0}/{1}'.format(instance.inpection_detail_id.id, filename)
+    return 'inpections/details/{0}/{1}'.format(instance.inspection_detail_id.id, filename)
 
 TYPES = (
     ('0', 'Init'),
