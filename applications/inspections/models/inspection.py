@@ -25,6 +25,7 @@ class Inspection(TimeStampModel):
     company_id                      = models.ForeignKey( Company, on_delete = models.PROTECT, null = True, blank = True, related_name = "inspection_company" )
     company_name                    = models.CharField( "company name", max_length = 100 )
     company_address                 = models.CharField( "company address", max_length = 100, null = True, blank = True )
+    company_activity                = models.CharField('company activity', max_length = 120, null = True, blank = True )
     company_ruc                     = models.CharField( "company ruc", max_length = 20 )
     company_total_employees         = models.IntegerField( "company total employees", null = True, blank = True )
     inspection_objective            = models.CharField('inspection objective', max_length = 120, null = True, blank = True )
