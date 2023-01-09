@@ -12,7 +12,7 @@ TYPES = (
 )
 
 class InspectionDetailEvidence(TimeStampModel):
-    inspection_detail_id = models.ForeignKey( InspectionDetail, on_delete = models.PROTECT, verbose_name = "inspection_detail_evidence" )
+    inspection_detail_id= models.ForeignKey( InspectionDetail, on_delete = models.PROTECT, verbose_name = "inspection_detail_evidence" )
     evidence            = models.FileField( upload_to = inspection_detail_evidence_path )
     type                = models.CharField( 'type', max_length = 50, choices = TYPES )
     state               = models.BooleanField( 'state', default = True )

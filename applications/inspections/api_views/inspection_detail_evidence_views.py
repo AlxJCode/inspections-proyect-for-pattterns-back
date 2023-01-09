@@ -53,6 +53,7 @@ class InspectionDetailEvidenceListView(APIView, PageNumberPagination):
             return Resp(msg_=inspection_serializer.errors, code_=status.HTTP_400_BAD_REQUEST, status_=False).send()
 
         except Exception:
+            print( traceback.format_exc() )
             return Resp(msg_="Ocurrió un error al crear inspection_detail_evidence", status_=False, code_=status.HTTP_500_INTERNAL_SERVER_ERROR).send()
 
 class InspectionDetailEvidenceDetailView(APIView):
