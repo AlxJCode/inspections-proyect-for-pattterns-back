@@ -18,7 +18,7 @@ class InspectionDetail(TimeStampModel):
     type                            = models.CharField ( 'type', max_length = 50 )
     assesment_id                    = models.ForeignKey( InspectionAssessment, on_delete = models.PROTECT, related_name = "inspection_detail_assesment" )
     assesment_name                  = models.CharField ( 'assesment name', max_length = 100 )
-    assesment_code                  = models.CharField ( 'assesment code', max_length = 100 )
+    affected_code                   = models.CharField ( 'assesment code', max_length = 20 )
     corrective_tasks                = models.CharField( 'corrective tasks', max_length = 100 )
     compliance_date                 = models.DateTimeField( 'compliance date' )
     percentage                      = models.IntegerField( 'percentage' )
