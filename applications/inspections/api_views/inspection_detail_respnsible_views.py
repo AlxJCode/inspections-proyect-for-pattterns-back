@@ -6,8 +6,11 @@ from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
 
 from applications.inspections.models import InspectionDetailResponsible
+from applications.users.models import SystemUser
 from applications.inspections.serializers import InspectionDetailResponsibleSerializerRequest, InspectionDetailResponsibleSerializerResponse
 from applications.utils.resp_tools import Resp
+from fcm_django.models import FCMDevice
+from firebase_admin.messaging import Message, Notification
 
 class InspectionDetailResponsibleListView(APIView, PageNumberPagination):
     permission_classes = (IsAuthenticated,)
@@ -46,13 +49,42 @@ class InspectionDetailResponsibleListView(APIView, PageNumberPagination):
             inspection_detail_responsible_serializer = InspectionDetailResponsibleSerializerRequest(data=request.data)
             if inspection_detail_responsible_serializer.is_valid():
                 inspection_detail_responsible_serializer.save()
-                # History process pending
+                
+                inspection = InspectionDetailResponsible.objects.filter( id = inspection_detail_responsible_serializer.data['id'] ).values( 'id', 'created' ).last()
+                responsible = SystemUser.objects.filter( dni = inspection_detail_responsible_serializer.data['user_dni'] ).values('auth_user').last( )
+
+                devices_to_send = FCMDevice.objects.filter(
+                    user__in = responsible
+                )
+
+                try:
+                    devices_to_send.send_message(
+                        Message(
+                            notification = Notification(
+                                title = "FUE ASIGNADO COMO RESPONSABLE DE UNA INSPECCIÓN",
+                                body = """Fecha: {0}""".format(
+                                    inspection.created.format("%Y-%m-%d"),  
+                                ),
+                            ),
+                            data = {
+                                "id": str( inspection.id ),
+                                "module": "inspections",
+                                "type": "assigned",
+                            },
+                            
+                        )
+                    )
+                    print( "Notificación enviada" )
+                except:
+                    print("Error al enviar notificación")
+                    print( traceback.format_exc() )
 
                 return Resp(data_=inspection_detail_responsible_serializer.data, code_=status.HTTP_201_CREATED).send()
             
             return Resp(msg_=inspection_detail_responsible_serializer.errors, code_=status.HTTP_400_BAD_REQUEST, status_=False).send()
 
         except Exception:
+            print( traceback.format_exc() )
             return Resp(msg_="Ocurrió un error al crear inspection_detail_responsible", status_=False, code_=status.HTTP_500_INTERNAL_SERVER_ERROR).send()
 
 class InspectionDetailResponsibleDetailView(APIView):
