@@ -51,7 +51,7 @@ class InspectionDetailResponsibleListView(APIView, PageNumberPagination):
             if inspection_detail_responsible_serializer.is_valid():
                 inspection_detail_responsible_serializer.save()
                 
-                inspection = InspectionDetailResponsible.objects.filter( id = inspection_detail_responsible_serializer.data['id'] ).values( 'id', 'created' ).last()
+                inspection = InspectionDetailResponsible.objects.filter( id = inspection_detail_responsible_serializer.data['id'] ).values( 'inspection_detail_id', 'created' ).last()
                 responsible = SystemUser.objects.filter( dni = inspection_detail_responsible_serializer.data['user_dni'] ).values('auth_user').last( )
 
                 inspection_datetime = inspection['created'].strftime("%d-%m-%Y %H:%M:%S")
@@ -70,7 +70,7 @@ class InspectionDetailResponsibleListView(APIView, PageNumberPagination):
                                 ),
                             ),
                             data = {
-                                "id": str( inspection['id'] ),
+                                "id": str( inspection['inspection_detail_id'] ),
                                 "module": "inspections",
                                 "type": "assigned",
                             },
