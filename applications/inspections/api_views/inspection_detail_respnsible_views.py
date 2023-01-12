@@ -1,4 +1,5 @@
 import traceback
+import datetime
 
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -27,9 +28,9 @@ class InspectionDetailResponsibleListView(APIView, PageNumberPagination):
             is_paginated = bool(request.GET.get('page', None))
 
             if is_paginated:
-                inspection_detail_responsibles_serializer = InspectionDetailResponsibleSerializerRequest(results, many=True)
+                inspection_detail_responsibles_serializer = InspectionDetailResponsibleSerializerResponse(results, many=True)
             else:
-                inspection_detail_responsibles_serializer = InspectionDetailResponsibleSerializerResponse(inspection_detail_responsibles, many=True)
+                inspection_detail_responsibles_serializer = InspectionDetailResponsibleSerializerRequest(inspection_detail_responsibles, many=True)
 
             return Resp(
                 data_=inspection_detail_responsibles_serializer.data,
@@ -51,13 +52,12 @@ class InspectionDetailResponsibleListView(APIView, PageNumberPagination):
                 inspection_detail_responsible_serializer.save()
                 
                 inspection = InspectionDetailResponsible.objects.filter( id = inspection_detail_responsible_serializer.data['id'] ).values( 'id', 'created' ).last()
-                responsible = SystemUser.objects.filter( dni = inspection_detail_responsible_serializer.data['user_dni'] ).last( )
+                responsible = SystemUser.objects.filter( dni = inspection_detail_responsible_serializer.data['user_dni'] ).values('auth_user').last( )
 
-                print( "responsible", responsible )
-                print( "responsible", responsible.auth_user )
+                inspection_datetime = inspection['created'].strftime("%d-%m-%Y %H:%M:%S")
 
                 devices_to_send = FCMDevice.objects.filter(
-                    user = responsible.auth_user
+                    user = responsible['auth_user']
                 )
 
                 try:
@@ -65,12 +65,12 @@ class InspectionDetailResponsibleListView(APIView, PageNumberPagination):
                         Message(
                             notification = Notification(
                                 title = "FUE ASIGNADO COMO RESPONSABLE DE UNA INSPECCIÓN",
-                                body = """Fecha: {0}""".format(
-                                    "FECHA PENDIENTE",  
+                                body = "Fecha: {0}".format(
+                                    inspection_datetime,  
                                 ),
                             ),
                             data = {
-                                "id": str( inspection.id ),
+                                "id": str( inspection['id'] ),
                                 "module": "inspections",
                                 "type": "assigned",
                             },
