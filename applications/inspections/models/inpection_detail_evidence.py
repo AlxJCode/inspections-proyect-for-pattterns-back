@@ -2,6 +2,7 @@ from django.db import models
 
 from applications.utils.models import TimeStampModel
 from applications.inspections.models import InspectionDetail
+from applications.users.models import SystemUser
 
 def inspection_detail_evidence_path(instance, filename):
     return 'inpections/details/{0}/{1}'.format(instance.inspection_detail_id.id, filename)
@@ -16,6 +17,7 @@ class InspectionDetailEvidence(TimeStampModel):
     evidence            = models.FileField( upload_to = inspection_detail_evidence_path )
     percentage          = models.IntegerField( 'percentage' )
     type                = models.CharField( 'type', max_length = 50, choices = TYPES )
+    user_id             = models.ForeignKey( SystemUser, on_delete = models.PROTECT, verbose_name ='user_id' )
     state               = models.BooleanField( 'state', default = True )
 
     class Meta:
