@@ -54,7 +54,7 @@ class InspectionDetailResponsibleListView(APIView, PageNumberPagination):
                 responsible = SystemUser.objects.filter( dni = inspection_detail_responsible_serializer.data['user_dni'] ).values('auth_user__id').last( )
 
                 devices_to_send = FCMDevice.objects.filter(
-                    user = responsible
+                    user = responsible.auth_user__id
                 )
 
                 try:
