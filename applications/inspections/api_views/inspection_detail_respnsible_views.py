@@ -66,7 +66,7 @@ class InspectionDetailResponsibleListView(APIView, PageNumberPagination):
                             notification = Notification(
                                 title = "FUE ASIGNADO COMO RESPONSABLE DE UNA INSPECCIÓN",
                                 body = """Fecha: {0}""".format(
-                                    inspection.created,  
+                                    "FECHA PENDIENTE",  
                                 ),
                             ),
                             data = {
