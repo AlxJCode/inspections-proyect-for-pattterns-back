@@ -46,7 +46,6 @@ urlpatterns = [
     path('inspection-detail-deferments/', InspectionDetailDefermentListView.as_view()),
     path('inspection-detail-deferments/<int:pk>/', InspectionDetailDefermentDetailView.as_view()),
     path('inspection-detail-deferments/filters/', InspectionDetailDefermentFiltersView.as_view()),
-    path('inspection-detail-deferments/datetime/', InspectionDetailDefermentDatetime.as_view()),
 
     # Inspection Affected
     path('inspection-affected/', InspectionAffectedListView.as_view()),

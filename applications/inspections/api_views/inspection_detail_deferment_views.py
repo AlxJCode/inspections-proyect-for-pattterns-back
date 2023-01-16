@@ -46,6 +46,11 @@ class InspectionDetailDefermentListView(APIView, PageNumberPagination):
             inspection_serializer = InspectionDetailDefermentSerializerRequest(data=request.data)
             if inspection_serializer.is_valid():
                 inspection_serializer.save()
+
+                inspection_detail = InspectionDetail.objects.get( id = inspection_serializer.data['id'] )
+                inspection_detail.compliance_date = inspection_serializer.data['cumpliance_date']
+                inspection_detail.save()
+
                 # History process pending
 
                 return Resp(data_=inspection_serializer.data, code_=status.HTTP_201_CREATED).send()
@@ -131,40 +136,3 @@ class InspectionDetailDefermentFiltersView(APIView, PageNumberPagination):
             print(tb)
             return Resp(msg_=tb, status_=False, code_=status.HTTP_400_BAD_REQUEST).send()
 
-
-class InspectionDetailDefermentDatetime( APIView ):
-    permission_classes = (IsAuthenticated,)
-    def post(self, request, format=None):
-
-        datetime = request.GET.post('datetime', None)
-        id = request.GET.post('id', None)
-
-        if not datetime:
-            return Resp(
-                msg_ = "datetime is required",
-                status_ = False,
-                code_= status.HTTP_400_BAD_REQUEST
-            ).send()
-
-        if not id:
-            return Resp(
-                msg_ = "id is required",
-                status_ = False,
-                code_= status.HTTP_400_BAD_REQUEST
-            ).send()
-
-        try:
-            inspection_detail_deferment = InspectionDetailDeferment.objects.get( id = id )
-            inspection_detail_deferment.cumpliance_date = datetime
-            inspection_detail_deferment.save()
-
-            inspection_detail = InspectionDetail.objects.get( id = inspection_detail_deferment.inspection_detail_id )
-            inspection_detail.compliance_date = datetime
-            inspection_detail.save()
-
-            return Resp(msg_="InspectionDetailDeferment actualizado correctamente").send()
-
-        except:
-            tb = traceback.format_exc()
-            print(tb)
-            return Resp(msg_=tb, status_=False, code_=status.HTTP_400_BAD_REQUEST).send()
