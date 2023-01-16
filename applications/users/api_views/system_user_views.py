@@ -10,6 +10,7 @@ from rest_framework.pagination import PageNumberPagination
 
 from applications.users.models import SystemUser
 from applications.history.models import History
+from django.db.models import Q
 
 from applications.users.serializers import SystemUserSerializerRequest, SystemUserSerializerResponse, SystemUserSerializerHistory
 from applications.utils.resp_tools import Resp
@@ -151,10 +152,20 @@ class SystemUserFiltersView(APIView, PageNumberPagination):
 
     def post(self, request, format=None):
         try:
-            filter = request.data.get("filter", {})
-            exclude = request.data.get("exclude", {})
+            # Custom Filter for users with or conditional ( name , f, s , doc ) 
+            if request.data.get('or'):
+                query = request.data.get('or').get('query') or ""
+                system_users = SystemUser.objects.select_related().filter(
+                    Q(name__icontains = query) | 
+                    Q(first_last_name__icontains = query) | 
+                    Q(second_last_name__icontains = query) |
+                    Q(dni__icontains = query) 
+                    ).order_by('-created')
+            else:
+                filter = request.data.get("filter", {})
+                exclude = request.data.get("exclude", {})
 
-            system_users = SystemUser.objects.filter( **filter ).exclude( **exclude ).select_related().order_by('-created')
+                system_users = SystemUser.objects.select_related().filter( **filter ).exclude( **exclude ).order_by('-created')
             
             results = self.paginate_queryset(system_users, request, view=self)
             previous_link = self.get_previous_link()

@@ -4,5 +4,6 @@ from .inspection_assessment import InspectionAssessment
 from .inspection import Inspection
 from .inspection_user import InspectionUser
 from .inspection_detail import InspectionDetail
-from .inpection_detail_evidence import InspectionDetailEvidence
+from .inspection_detail_evidence import InspectionDetailEvidence
 from .inspection_detail_responsible import InspectionDetailResponsible
+from .inspection_detail_deferment import InspectionDetailDeferment

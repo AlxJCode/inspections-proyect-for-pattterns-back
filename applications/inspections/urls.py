@@ -8,6 +8,7 @@ from applications.inspections.api_views.inspection_user_views import *
 from applications.inspections.api_views.inspection_type_views import *
 from applications.inspections.api_views.inspection_detail_respnsible_views import *
 from applications.inspections.api_views.inspection_detail_views import *
+from applications.inspections.api_views.inspection_detail_deferment_views import *
 
 urlpatterns = [
 
@@ -40,6 +41,12 @@ urlpatterns = [
     path('inspection-detail-responsibles/', InspectionDetailResponsibleListView.as_view()),
     path('inspection-detail-responsibles/<int:pk>/', InspectionDetailResponsibleDetailView.as_view()),
     path('inspection-detail-responsibles/filters/', InspectionDetailResponsibleFiltersView.as_view()),
+
+    # Inspection Details deferment
+    path('inspection-detail-deferments/', InspectionDetailDefermentListView.as_view()),
+    path('inspection-detail-deferments/<int:pk>/', InspectionDetailDefermentDetailView.as_view()),
+    path('inspection-detail-deferments/filters/', InspectionDetailDefermentFiltersView.as_view()),
+    path('inspection-detail-deferments/datetime/', InspectionDetailDefermentDatetime.as_view()),
 
     # Inspection Affected
     path('inspection-affected/', InspectionAffectedListView.as_view()),

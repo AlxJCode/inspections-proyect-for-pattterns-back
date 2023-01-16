@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from applications.inspections.models import InspectionAssessment, InspectionDetail, Inspection, InspectionDetailEvidence, InspectionDetailResponsible, InspectionAffected, InspectionType, InspectionUser, Inspection
+from applications.inspections.models import InspectionAssessment, InspectionDetail, Inspection, InspectionDetailEvidence, InspectionDetailResponsible, InspectionAffected, InspectionType, InspectionUser, Inspection, InspectionDetailDeferment
 from applications.users.serializers import SystemUserSerializerRequest
 
 # Inpection serializers
@@ -74,6 +74,18 @@ class InspectionDetailResponsibleSerializerResponse( serializers.ModelSerializer
     inspection_detail_model = InspectionDetailSerializerRequest( source = "inspection_detail_id" )
     class Meta:
         model = InspectionDetailResponsible
+        fields = "__all__"
+
+# Inpection detail deferment serializers
+class InspectionDetailDefermentSerializerRequest( serializers.ModelSerializer ):
+    class Meta:
+        model = InspectionDetailDeferment
+        fields = "__all__"
+
+class InspectionDetailDefermentSerializerResponse( serializers.ModelSerializer ):
+    inspection_detail_model = InspectionDetailSerializerRequest( source = "inspection_detail_id" )
+    class Meta:
+        model = InspectionDetailDeferment
         fields = "__all__"
 
 # Inpection affected serializers
