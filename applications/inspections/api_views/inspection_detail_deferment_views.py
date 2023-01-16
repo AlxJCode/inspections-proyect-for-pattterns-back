@@ -47,7 +47,7 @@ class InspectionDetailDefermentListView(APIView, PageNumberPagination):
             if inspection_serializer.is_valid():
                 inspection_serializer.save()
 
-                inspection_detail = InspectionDetail.objects.get( id = inspection_serializer.data['id'] )
+                inspection_detail = InspectionDetail.objects.get( id = inspection_serializer.data['inspection_detail_id'] )
                 inspection_detail.compliance_date = inspection_serializer.data['cumpliance_date']
                 inspection_detail.save()
 
