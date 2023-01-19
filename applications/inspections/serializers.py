@@ -3,6 +3,22 @@ from rest_framework import serializers
 from applications.inspections.models import InspectionAssessment, InspectionDetail, Inspection, InspectionDetailEvidence, InspectionDetailResponsible, InspectionAffected, InspectionType, InspectionUser, Inspection, InspectionDetailDeferment
 from applications.users.serializers import SystemUserSerializerRequest
 
+# Inpection type serializers
+class InspectionTypeSerializerRequest( serializers.ModelSerializer ):
+    class Meta:
+        model = InspectionType
+        fields = "__all__"
+
+class InspectionTypeSerializerResponse( serializers.ModelSerializer ):
+    class Meta:
+        model = InspectionType
+        fields = "__all__"
+
+class InspectionTypeSerializerHistory( serializers.ModelSerializer ):
+    class Meta:
+        model = InspectionType
+        exclude = ('created', "modified",)
+
 # Inpection serializers
 class InspectionSerializerRequest( serializers.ModelSerializer ):
     class Meta:
@@ -11,6 +27,7 @@ class InspectionSerializerRequest( serializers.ModelSerializer ):
 
 class InspectionSerializerResponse( serializers.ModelSerializer ):
     user_model = SystemUserSerializerRequest( source = 'user_id' )
+    type_model = InspectionTypeSerializerRequest( source = 'type' )
     class Meta:
         model = Inspection
         fields = "__all__"
@@ -37,21 +54,6 @@ class InspectionDetailSerializerResponse( serializers.ModelSerializer ):
         model = InspectionDetail
         fields = "__all__"
 
-# Inpection type serializers
-class InspectionTypeSerializerRequest( serializers.ModelSerializer ):
-    class Meta:
-        model = InspectionType
-        fields = "__all__"
-
-class InspectionTypeSerializerResponse( serializers.ModelSerializer ):
-    class Meta:
-        model = InspectionType
-        fields = "__all__"
-
-class InspectionTypeSerializerHistory( serializers.ModelSerializer ):
-    class Meta:
-        model = InspectionType
-        exclude = ('created', "modified",)
 
 # Inpection detail evidence serializers
 class InspectionDetailEvidenceSerializerRequest( serializers.ModelSerializer ):

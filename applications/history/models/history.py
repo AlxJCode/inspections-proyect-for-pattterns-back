@@ -15,3 +15,6 @@ class History(TimeStampModel):
         ordering = ["id"]
         verbose_name_plural = "Historiales"
         verbose_name = "Historial"
+
+    def __str__(self):
+        return self.table_name + " - " + self.action + " - " + str(self.table_id)

@@ -17,6 +17,7 @@ class SystemUser(TimeStampModel):
     name                = models.CharField( "name", max_length = 60 )
     first_last_name     = models.CharField( "first lastname", max_length = 50 )
     second_last_name    = models.CharField( "second lastname", max_length = 50 )
+    position            = models.CharField('position', max_length = 100, blank = True, null = True )
     email               = models.EmailField( "email", max_length = 100, null = True, blank = True )
     type                = models.CharField( "type", max_length = 50, choices = USER_TYPES, default = U )
     phone               = models.CharField( "phone", max_length = 15, null = True, blank = True )
