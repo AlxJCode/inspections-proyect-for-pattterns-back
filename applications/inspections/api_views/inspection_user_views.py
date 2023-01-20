@@ -101,19 +101,19 @@ class InspectionUserFiltersView(APIView, PageNumberPagination):
             filter = request.data.get("filter", {})
             exclude = request.data.get("exclude", {})
 
-            inpection_users = InspectionUser.objects.filter( **filter ).exclude( **exclude ).select_related().order_by('-created')
+            inspection_users = InspectionUser.objects.filter( **filter ).exclude( **exclude ).select_related().order_by('-created')
             
-            results = self.paginate_queryset(inpection_users, request, view=self)
+            results = self.paginate_queryset(inspection_users, request, view=self)
             previous_link = self.get_previous_link()
             next_link = self.get_next_link()
-            count = inpection_users.count()
+            count = inspection_users.count()
 
             is_paginated = bool(request.GET.get('page', None))
 
             if is_paginated:
                 inpection_users_serializer = InspectionUserSerializerResponse(results, many=True)
             else:
-                inpection_users_serializer = InspectionUserSerializerRequest(inpection_users, many=True)
+                inpection_users_serializer = InspectionUserSerializerRequest(inspection_users, many=True)
 
             return Resp(
                 data_=inpection_users_serializer.data,

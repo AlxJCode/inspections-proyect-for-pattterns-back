@@ -13,7 +13,7 @@ TYPES = (
 )
 
 class InspectionDetailEvidence(TimeStampModel):
-    inspection_detail_id= models.ForeignKey( InspectionDetail, on_delete = models.PROTECT, verbose_name = "inspection_detail_evidence" )
+    inspection_detail_id= models.ForeignKey( InspectionDetail, on_delete = models.PROTECT, verbose_name = "inspection_detail_evidence", related_name = "ide" )
     evidence            = models.FileField( upload_to = inspection_detail_evidence_path )
     percentage          = models.IntegerField( 'percentage' )
     type                = models.CharField( 'type', max_length = 50, choices = TYPES )

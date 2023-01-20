@@ -3,6 +3,38 @@ from rest_framework import serializers
 from applications.inspections.models import InspectionAssessment, InspectionDetail, Inspection, InspectionDetailEvidence, InspectionDetailResponsible, InspectionAffected, InspectionType, InspectionUser, Inspection, InspectionDetailDeferment
 from applications.users.serializers import SystemUserSerializerRequest
 
+# Inpection affected serializers
+class InspectionAffectedSerializerRequest( serializers.ModelSerializer ):
+    class Meta:
+        model = InspectionAffected
+        fields = "__all__"
+
+class InspectionAffectedSerializerResponse( serializers.ModelSerializer ):
+    class Meta:
+        model = InspectionAffected
+        fields = "__all__"
+    
+class InspectionAffectedSerializerHistory( serializers.ModelSerializer ):
+    class Meta:
+        model = InspectionAffected
+        exclude = ('created', "modified",)
+
+# Inpection assessment serializers
+class InspectionAssessmentSerializerRequest( serializers.ModelSerializer ):
+    class Meta:
+        model = InspectionAssessment
+        fields = "__all__"
+
+class InspectionAssessmentSerializerResponse( serializers.ModelSerializer ):
+    class Meta:
+        model = InspectionAssessment
+        fields = "__all__"
+
+class InspectionAssessmentSerializerHistory( serializers.ModelSerializer ):
+    class Meta:
+        model = InspectionAssessment
+        exclude = ('created', "modified",)
+
 # Inpection type serializers
 class InspectionTypeSerializerRequest( serializers.ModelSerializer ):
     class Meta:
@@ -39,8 +71,21 @@ class InspectionUserSerializerRequest( serializers.ModelSerializer ):
         fields = "__all__"
 
 class InspectionUserSerializerResponse( serializers.ModelSerializer ):
+    user_model = SystemUserSerializerRequest( source = "user_id" )
     class Meta:
         model = InspectionUser
+        fields = "__all__"
+
+# Inpection detail evidence serializers
+class InspectionDetailEvidenceSerializerRequest( serializers.ModelSerializer ):
+    class Meta:
+        model = InspectionDetailEvidence
+        fields = "__all__"
+
+# Inpection detail responsible serializers
+class InspectionDetailResponsibleSerializerRequest( serializers.ModelSerializer ):
+    class Meta:
+        model = InspectionDetailResponsible
         fields = "__all__"
 
 # Inpection detail serializers
@@ -50,6 +95,12 @@ class InspectionDetailSerializerRequest( serializers.ModelSerializer ):
         fields = "__all__"
 
 class InspectionDetailSerializerResponse( serializers.ModelSerializer ):
+    assessment_model    = InspectionAssessmentSerializerRequest( source = "assesment_id" )
+    affected_model      = InspectionAffectedSerializerRequest( source = "affected_id" )
+    inspection_model    = InspectionSerializerRequest( source = "inspection_id" )
+    evidences           = InspectionDetailEvidenceSerializerRequest ( source = "ide", many = True )
+    responsible_users   = InspectionDetailResponsibleSerializerRequest ( source = "idr", many = True )
+
     class Meta:
         model = InspectionDetail
         fields = "__all__"
@@ -90,34 +141,3 @@ class InspectionDetailDefermentSerializerResponse( serializers.ModelSerializer )
         model = InspectionDetailDeferment
         fields = "__all__"
 
-# Inpection affected serializers
-class InspectionAffectedSerializerRequest( serializers.ModelSerializer ):
-    class Meta:
-        model = InspectionAffected
-        fields = "__all__"
-
-class InspectionAffectedSerializerResponse( serializers.ModelSerializer ):
-    class Meta:
-        model = InspectionAffected
-        fields = "__all__"
-    
-class InspectionAffectedSerializerHistory( serializers.ModelSerializer ):
-    class Meta:
-        model = InspectionAffected
-        exclude = ('created', "modified",)
-
-# Inpection assessment serializers
-class InspectionAssessmentSerializerRequest( serializers.ModelSerializer ):
-    class Meta:
-        model = InspectionAssessment
-        fields = "__all__"
-
-class InspectionAssessmentSerializerResponse( serializers.ModelSerializer ):
-    class Meta:
-        model = InspectionAssessment
-        fields = "__all__"
-
-class InspectionAssessmentSerializerHistory( serializers.ModelSerializer ):
-    class Meta:
-        model = InspectionAssessment
-        exclude = ('created', "modified",)

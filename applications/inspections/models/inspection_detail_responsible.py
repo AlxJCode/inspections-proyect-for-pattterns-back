@@ -5,7 +5,7 @@ from applications.inspections.models import InspectionDetail
 from applications.users.models import SystemUser
 
 class InspectionDetailResponsible(TimeStampModel):
-    inspection_detail_id = models.ForeignKey( InspectionDetail, on_delete = models.PROTECT )
+    inspection_detail_id = models.ForeignKey( InspectionDetail, on_delete = models.PROTECT, related_name = "idr" )
     user_id             = models.ForeignKey( SystemUser, on_delete = models.PROTECT, null = True, blank = True )
     user_fullname       = models.CharField( 'user fullname', max_length = 150 )
     user_dni            = models.CharField( 'user dni', max_length = 15 )
