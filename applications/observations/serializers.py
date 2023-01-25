@@ -26,6 +26,17 @@ class ObservationDetailSerializerResponse( serializers.ModelSerializer ):
         model = ObservationDetail
         fields = "__all__"
 
+# Observation DetailDeferment serializers
+class ObservationDetailDefermentSerializerRequest( serializers.ModelSerializer ):
+    class Meta:
+        model = ObservationDetailDeferment
+        fields = "__all__"
+
+class ObservationDetailDefermentSerializerResponse( serializers.ModelSerializer ):
+    class Meta:
+        model = ObservationDetailDeferment
+        fields = "__all__"
+
 # Observation responsible serializers
 class ObservationResponsibleSerializerRequest( serializers.ModelSerializer ):
     class Meta:
@@ -76,6 +87,38 @@ class ObservationUserSerializerResponse( serializers.ModelSerializer ):
         fields = "__all__"
 
 # Observation user serializers
+class ObservationTypeSerializerRequest( serializers.ModelSerializer ):
+    class Meta:
+        model = ObservationType
+        fields = "__all__"
+
+class ObservationTypeSerializerResponse( serializers.ModelSerializer ):
+    class Meta:
+        model = ObservationType
+        fields = "__all__"
+
+class ObservationTypeSerializerHistory( serializers.ModelSerializer ):
+    class Meta:
+        model = ObservationType
+        exclude = ('created', "modified",)
+
+# Observation Affected serializers
+class ObservationAffectedSerializerRequest( serializers.ModelSerializer ):
+    class Meta:
+        model = ObservationAffected
+        fields = "__all__"
+
+class ObservationAffectedSerializerResponse( serializers.ModelSerializer ):
+    class Meta:
+        model = ObservationAffected
+        fields = "__all__"
+
+class ObservationAffectedSerializerHistory( serializers.ModelSerializer ):
+    class Meta:
+        model = ObservationAffected
+        exclude = ('created', "modified",)
+
+# Observation Answer serializers
 class ObservationAnswerSerializerRequest( serializers.ModelSerializer ):
     class Meta:
         model = ObservationAnswer

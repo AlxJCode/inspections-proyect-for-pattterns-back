@@ -30,7 +30,7 @@ class Inspection(TimeStampModel):
     company_total_employees         = models.IntegerField( "company total employees", null = True, blank = True )
     inspection_objective            = models.CharField('inspection objective', max_length = 120, null = True, blank = True )
     datetime                        = models.DateTimeField( "datetime" )
-    type                            = models.ForeignKey( InspectionType, on_delete = models.PROTECT, related_name = "inspection_type" )
+    type                            = models.ForeignKey( InspectionType, on_delete = models.PROTECT, related_name = "inspection_type", null = True, blank = True )
     causes_of_infavourable_results  = models.CharField( "causes of infavourable results", max_length = 100, null = True, blank = True )
     conclutions                     = models.CharField( "conclutions", max_length = 100, null = True, blank = True )
     recommendations                 = models.CharField( 'recommendations', max_length = 100, null = True, blank = True )

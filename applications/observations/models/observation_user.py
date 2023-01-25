@@ -13,8 +13,8 @@ class ObservationUser(TimeStampModel):
     user_id         = models.ForeignKey( SystemUser, on_delete = models.PROTECT, null = True, blank = True )
     observation_id  = models.ForeignKey( Observation, on_delete = models.PROTECT )
     type            = models.CharField( 'type', max_length = 50, choices = TYPES )
-    dni             = models.CharField( 'dni', max_length = 15 )
-    user_fullname   = models.CharField( 'user_fullname', max_length = 150 )
+    user_dni        = models.CharField( 'user dni', max_length = 15, null = True )
+    user_fullname   = models.CharField( 'user fullname', max_length = 150 )
     occupation      = models.CharField( 'occupation', max_length = 100, null = True, blank = True )
     experience      = models.CharField( 'experience', max_length = 100, null = True, blank = True )
 

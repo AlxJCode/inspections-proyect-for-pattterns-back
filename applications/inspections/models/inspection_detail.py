@@ -6,6 +6,7 @@ from applications.inspections.models import Inspection, InspectionAffected, Insp
 STATES = (
     ('0', 'Pending'),
     ('1', 'Refused'),
+    ('2', 'Accepted'),
 )
 
 class InspectionDetail(TimeStampModel):
