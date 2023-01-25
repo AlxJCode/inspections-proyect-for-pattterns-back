@@ -35,38 +35,38 @@ urlpatterns = [
     path('observation-details/filters/', ObservationDetailFiltersView.as_view()),
 
     # Observation detail Responsible 
-    path('inpection-detail-responsibles/', ObservationResponsibleListView.as_view()),
-    path('inpection-detail-responsibles/<int:pk>/', ObservationResponsibleDetailView.as_view()),
-    path('inpection-detail-responsibles/filters/', ObservationResponsibleFiltersView.as_view()),
+    path('observation-detail-responsibles/', ObservationResponsibleListView.as_view()),
+    path('observation-detail-responsibles/<int:pk>/', ObservationResponsibleDetailView.as_view()),
+    path('observation-detail-responsibles/filters/', ObservationResponsibleFiltersView.as_view()),
 
     # Observation detail Deferment 
-    path('inpection-detail-deferments/', ObservationDetailDefermentListView.as_view()),
-    path('inpection-detail-deferments/<int:pk>/', ObservationDetailDefermentDetailView.as_view()),
-    path('inpection-detail-deferments/filters/', ObservationDetailDefermentFiltersView.as_view()),
+    path('observation-detail-deferments/', ObservationDetailDefermentListView.as_view()),
+    path('observation-detail-deferments/<int:pk>/', ObservationDetailDefermentDetailView.as_view()),
+    path('observation-detail-deferments/filters/', ObservationDetailDefermentFiltersView.as_view()),
 
     # Observation Details evidences
-    path('inpection-detail-evidences/', ObservationEvidenceListView.as_view()),
-    path('inpection-detail-evidences/<int:pk>/', ObservationEvidenceDetailView.as_view()),
-    path('inpection-detail-evidences/filters/', ObservationEvidenceFiltersView.as_view()),
+    path('observation-detail-evidences/', ObservationEvidenceListView.as_view()),
+    path('observation-detail-evidences/<int:pk>/', ObservationEvidenceDetailView.as_view()),
+    path('observation-detail-evidences/filters/', ObservationEvidenceFiltersView.as_view()),
 
     # Observation Details assessments
-    path('inpection-detail-assessments/', ObservationAssessmentListView.as_view()),
-    path('inpection-detail-assessments/<int:pk>/', ObservationAssessmentDetailView.as_view()),
-    path('inpection-detail-assessments/filters/', ObservationAssessmentFiltersView.as_view()),
+    path('observation-detail-assessments/', ObservationAssessmentListView.as_view()),
+    path('observation-detail-assessments/<int:pk>/', ObservationAssessmentDetailView.as_view()),
+    path('observation-detail-assessments/filters/', ObservationAssessmentFiltersView.as_view()),
 
     # Observation question
-    path('inpection-questions/', ObservationQuestionListView.as_view()),
-    path('inpection-questions/<int:pk>/', ObservationQuestionDetailView.as_view()),
-    path('inpection-questions/filters/', ObservationQuestionFiltersView.as_view()),
+    path('observation-questions/', ObservationQuestionListView.as_view()),
+    path('observation-questions/<int:pk>/', ObservationQuestionDetailView.as_view()),
+    path('observation-questions/filters/', ObservationQuestionFiltersView.as_view()),
 
     # Observation affected
-    path('inpection-affecteds/', ObservationAffectedListView.as_view()),
-    path('inpection-affecteds/<int:pk>/', ObservationAffectedDetailView.as_view()),
-    path('inpection-affecteds/filters/', ObservationAffectedFiltersView.as_view()),
+    path('observation-affecteds/', ObservationAffectedListView.as_view()),
+    path('observation-affecteds/<int:pk>/', ObservationAffectedDetailView.as_view()),
+    path('observation-affecteds/filters/', ObservationAffectedFiltersView.as_view()),
 
     # Observation answers
-    path('inpection-answers/', ObservationAnswerListView.as_view()),
-    path('inpection-answers/<int:pk>/', ObservationAnswerDetailView.as_view()),
-    path('inpection-answers/filters/', ObservationAnswerFiltersView.as_view()),
+    path('observation-answers/', ObservationAnswerListView.as_view()),
+    path('observation-answers/<int:pk>/', ObservationAnswerDetailView.as_view()),
+    path('observation-answers/filters/', ObservationAnswerFiltersView.as_view()),
 
 ]
