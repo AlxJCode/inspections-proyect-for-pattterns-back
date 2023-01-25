@@ -58,7 +58,7 @@ class ObservationAssessmentListView(APIView, PageNumberPagination):
                 serializer_for_history = ObservationAssessmentSerializerHistory(new_observation_assessment, data=observation_assessment_serializer.data, partial=True)
                 if serializer_for_history.is_valid():
                     serializer_for_history_to_json = json.dumps(serializer_for_history.data, ensure_ascii=False).replace('"', "'")
-                    history= History(table_name="ObservationQuestion",action="CREATE", table_id=observation_assessment_serializer.data["id"],table_value=serializer_for_history_to_json)
+                    history= History(table_name="ObservationAssessment",action="CREATE", table_id=observation_assessment_serializer.data["id"],table_value=serializer_for_history_to_json)
                     history.save()
 
                 return Resp(data_=observation_assessment_serializer.data, code_=status.HTTP_201_CREATED).send()
@@ -88,6 +88,13 @@ class ObservationAssessmentDetailView(APIView):
                 observation_assessment_serializer.save()
 
                 # History process pending
+
+                serializer_for_history = ObservationAssessmentSerializerHistory(observation_assessment, data=observation_assessment_serializer.data, partial=True)
+                if serializer_for_history.is_valid():
+                    serializer_for_history_to_json = json.dumps(serializer_for_history.data, ensure_ascii=False).replace('"', "'")
+                    history= History(table_name="ObservationAssessment",action="UPDATE", table_id=observation_assessment_serializer.data["id"],table_value=serializer_for_history_to_json)
+                    history.save()
+
                 return Resp(data_=observation_assessment_serializer.data, msg_="ObservationAssessment actualizada correctamente").send()
             
             return Resp(data_=observation_assessment_serializer.errors, msg_="Error al actualizar observation_assessment", status=False, code_=status.HTTP_400_BAD_REQUEST).send()
