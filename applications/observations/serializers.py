@@ -44,6 +44,7 @@ class ObservationResponsibleSerializerRequest( serializers.ModelSerializer ):
         fields = "__all__"
 
 class ObservationResponsibleSerializerResponse( serializers.ModelSerializer ):
+    observation_detail_model = ObservationDetailSerializerRequest( source = "observation_detail_id" )
     class Meta:
         model = ObservationResponsible
         fields = "__all__"
