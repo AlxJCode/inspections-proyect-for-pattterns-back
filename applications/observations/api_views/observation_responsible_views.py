@@ -6,8 +6,11 @@ from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
 
 from applications.observations.models import ObservationResponsible
+from applications.users.models import SystemUser
 from applications.observations.serializers import ObservationResponsibleSerializerRequest, ObservationResponsibleSerializerResponse
 from applications.utils.resp_tools import Resp
+from fcm_django.models import FCMDevice
+from firebase_admin.messaging import Message, Notification
 
 class ObservationResponsibleListView(APIView, PageNumberPagination):
     permission_classes = (IsAuthenticated,)
@@ -47,6 +50,37 @@ class ObservationResponsibleListView(APIView, PageNumberPagination):
             if observation_responsible_serializer.is_valid():
                 observation_responsible_serializer.save()
                 # History process pending
+
+                observation = ObservationResponsible.objects.filter( id = observation_responsible_serializer.data['id'] ).values( 'observation_detail_id', 'created' ).last()
+                responsible = SystemUser.objects.filter( dni = observation_responsible_serializer.data['user_dni'] ).values('auth_user').last( )
+
+                observation_datetime = observation['created'].strftime("%d-%m-%Y %H:%M:%S")
+
+                devices_to_send = FCMDevice.objects.filter(
+                    user = responsible['auth_user']
+                )
+
+                try:
+                    devices_to_send.send_message(
+                        Message(
+                            notification = Notification(
+                                title = "FUE ASIGNADO COMO RESPONSABLE DE UNA OBSERVACIÓN",
+                                body = "Fecha: {0}".format(
+                                    observation_datetime,  
+                                ),
+                            ),
+                            data = {
+                                "id": str( observation['observation_detail_id'] ),
+                                "module": "observations",
+                                "type": "assigned",
+                            },
+                            
+                        )
+                    )
+                    print( "Notificación enviada" )
+                except:
+                    print("Error al enviar notificación")
+                    print( traceback.format_exc() )
 
                 return Resp(data_=observation_responsible_serializer.data, code_=status.HTTP_201_CREATED).send()
             
