@@ -7,7 +7,7 @@ from applications.users.models import SystemUser
 class ObservationDetailDeferment( TimeStampModel ):
     observation_detail_id   = models.ForeignKey( ObservationDetail, on_delete = models.PROTECT )
     user_id                 = models.ForeignKey( SystemUser, on_delete = models.PROTECT, null = True, blank = True )
-    cumpliance_date         = models.DateTimeField( 'cumpliance date' )
+    compliance_date         = models.DateTimeField( 'compliance date', null = True, blank = True )
     observations            = models.CharField( 'observations', max_length = 124, null = True, blank = True )
     state                   = models.BooleanField( 'state', default = True )
 

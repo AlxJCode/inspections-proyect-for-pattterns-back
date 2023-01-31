@@ -48,7 +48,7 @@ class ObservationDetailDefermentListView(APIView, PageNumberPagination):
                 observation_detail_deferment_serializer.save()
                 
                 observation_detail = ObservationDetail.objects.get( id = observation_detail_deferment_serializer.data['observation_detail_id'] )
-                observation_detail.compliance_date = observation_detail_deferment_serializer.data['cumpliance_date']
+                observation_detail.compliance_date = observation_detail_deferment_serializer.data['compliance_date']
                 observation_detail.save()
 
 
