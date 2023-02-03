@@ -17,7 +17,7 @@ class ObservationDetail ( TimeStampModel ):
     impact_details                  = models.CharField( 'impact details', max_length = 150 )
     type                            = models.CharField( 'type', max_length = 150 )
     assesment_id                    = models.ForeignKey( ObservationAssessment, on_delete = models.PROTECT, related_name = "observation_detail_assesment" )
-    assesment_name                  = models.CharField( 'affected name', max_length = 100, null = True, blank = True )
+    assesment_name                  = models.CharField( 'assesment name', max_length = 100, null = True, blank = True )
     corrective_tasks                = models.CharField( 'corrective tasks', max_length = 150 )
     compliance_date                 = models.DateTimeField( 'compliance date', null = True, blank = True )
     percentage                      = models.IntegerField( 'percentage', default = 0 )

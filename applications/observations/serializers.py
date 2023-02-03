@@ -20,8 +20,34 @@ class ObservationDetailSerializerRequest( serializers.ModelSerializer ):
     class Meta:
         model = ObservationDetail
         fields = "__all__"
+# Observation assessment serializers
+class ObservationAssessmentSerializerRequest( serializers.ModelSerializer ):
+    class Meta:
+        model = ObservationAssessment
+        fields = "__all__"
+# Observation Affected serializers
+class ObservationAffectedSerializerRequest( serializers.ModelSerializer ):
+    class Meta:
+        model = ObservationAffected
+        fields = "__all__"
+# Observation evidence serializers
+class ObservationEvidenceSerializerRequest( serializers.ModelSerializer ):
+    class Meta:
+        model = ObservationEvidence
+        fields = "__all__"
+# Observation responsible serializers
+class ObservationResponsibleSerializerRequest( serializers.ModelSerializer ):
+    class Meta:
+        model = ObservationResponsible
+        fields = "__all__"
+
 
 class ObservationDetailSerializerResponse( serializers.ModelSerializer ):
+    assessment_model    = ObservationAssessmentSerializerRequest( source = "assesment_id" )
+    affected_model      = ObservationAffectedSerializerRequest( source = "affected_id" )
+    inspection_model    = ObservationSerializerRequest( source = "observation_id" )
+    evidences           = ObservationEvidenceSerializerRequest ( source = "ode", many = True )
+    responsible_users   = ObservationResponsibleSerializerRequest ( source = "odr", many = True )
     class Meta:
         model = ObservationDetail
         fields = "__all__"
@@ -125,7 +151,14 @@ class ObservationAnswerSerializerRequest( serializers.ModelSerializer ):
         model = ObservationAnswer
         fields = "__all__"
 
+# Observation question serializers
+class ObservationQuestionSerializerRequest( serializers.ModelSerializer ):
+    class Meta:
+        model = ObservationQuestion
+        fields = "__all__"
+
 class ObservationAnswerSerializerResponse( serializers.ModelSerializer ):
+    question_model = ObservationQuestionSerializerRequest( source = "question_id" )
     class Meta:
         model = ObservationAnswer
         fields = "__all__"

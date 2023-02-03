@@ -13,7 +13,7 @@ TYPES = (
 )
 
 class ObservationEvidence( TimeStampModel ):
-    observation_detail_id   = models.ForeignKey( ObservationDetail, on_delete = models.PROTECT, verbose_name = "observation_detail_evidence" )
+    observation_detail_id   = models.ForeignKey( ObservationDetail, on_delete = models.PROTECT, verbose_name = "observation_detail_evidence", related_name = "ode" )
     evidence                = models.FileField( 'evidence', upload_to = observation_detail_evidence_path )
     percentage              = models.IntegerField( 'percentage', default = 0 )
     user_id                 = models.ForeignKey( SystemUser, on_delete = models.PROTECT, null = True )

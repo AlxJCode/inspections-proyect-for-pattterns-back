@@ -16,7 +16,7 @@ class ObservationQuestionListView(APIView, PageNumberPagination):
 
     def get(self, request, format=None):
         try:
-            observation_questions = ObservationQuestion.objects.select_related()
+            observation_questions = ObservationQuestion.objects.select_related().order_by('order')
             
             results = self.paginate_queryset(observation_questions, request, view=self)
             previous_link = self.get_previous_link()
@@ -128,7 +128,7 @@ class ObservationQuestionFiltersView(APIView, PageNumberPagination):
             filter = request.data.get("filter", {})
             exclude = request.data.get("exclude", {})
 
-            observation_questions = ObservationQuestion.objects.filter( **filter ).exclude( **exclude ).select_related().order_by('-created')
+            observation_questions = ObservationQuestion.objects.filter( **filter ).exclude( **exclude ).select_related().order_by('order')
             
             results = self.paginate_queryset(observation_questions, request, view=self)
             previous_link = self.get_previous_link()
